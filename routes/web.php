@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('/resume', function () {
+    return view('resume');
+})->name('resume');
+
+Route::get('/project', function () {
+    return view('projects');
+})->name('projects');
+
+
+
+Route::post('/submit-form', [ContactController::class, 'sendContactEmail'])->name('contactForm');
