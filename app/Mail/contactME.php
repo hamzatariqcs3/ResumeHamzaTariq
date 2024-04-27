@@ -9,55 +9,28 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class contactME extends Mailable
+class ContactMe extends Mailable
 {
     use Queueable, SerializesModels;
-    public $name;
-    public $email;
-    public $message;
+
+    public $details;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $email, $message)
+    public function __construct($details)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->message = $message;
+//
+        $this->details=$details;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: 'Contact Me',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return $this->subject('New Contact Message')
-                    ->view('contact-me');
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
+    public function build(){
+        if(isset($this->details['guest'])){
+            return $this->subject('Thank you for contact')->view('mail.thank-you')->with('details');
+        }else{
+            return $this->view('mail.contact-me')->with('details');
+        }
     }
 }

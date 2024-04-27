@@ -11,6 +11,21 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
+
+                            @if(session('success'))
+                                <script>
+                                    toastr.success('{{ session('success') }}');
+                                </script>
+                            @endif
+
+
+
+                            @if(session('error'))
+                                <script>
+                                    toastr.error('{{ session('error') }}');
+                                </script>
+                            @endif
+                             
                                 <!-- * * * * * * * * * * * * * * *-->
                                 <!-- * * SB Forms Contact Form * *-->
                                 <!-- * * * * * * * * * * * * * * *-->
@@ -73,5 +88,9 @@
                 </div>
             </section>
         </main>
+      
+       
+ 
+
 
         @include('include.footer')

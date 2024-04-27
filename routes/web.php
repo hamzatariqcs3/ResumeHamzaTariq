@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ResumeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,9 +23,10 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/resume', function () {
-    return view('resume');
-})->name('resume');
+ 
+Route::get('/resume', [ResumeController::class,'resume'])->name('resume');
+ 
+ 
 
 Route::get('/project', function () {
     return view('projects');
@@ -33,3 +35,4 @@ Route::get('/project', function () {
 
 
 Route::post('/submit-form', [ContactController::class, 'sendContactEmail'])->name('contactForm');
+Route::get('/example', [ContactController::class, 'resume']);
